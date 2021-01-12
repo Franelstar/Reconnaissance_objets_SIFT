@@ -96,7 +96,7 @@ if __name__ == '__main__':
 
     # We check if the training image is available
     try:
-        out = cv.drawMatches(images_train[result[3]], k_points[result[3]], image, kp, result[2], None)
+        out = cv.drawMatches(image, kp, images_train[result[3]], k_points[result[3]], result[2], None)
         print(colored('Press the 0 key to close the image', attrs=['dark']))
         print()
 
@@ -112,19 +112,19 @@ if __name__ == '__main__':
         plt.axis("off")
 
         fig.add_subplot(3, 2, 3)
-        plt.imshow(cv.drawKeypoints(image_test_gray, kp, image, flags=cv.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS))
+        plt.imshow(cv.drawKeypoints(image, kp, image, flags=cv.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS))
         plt.title('Key points')
         plt.axis("off")
 
         fig.add_subplot(3, 2, 4)
-        plt.imshow(cv.drawKeypoints(cv.cvtColor(images_train[result[3]], cv.COLOR_RGB2GRAY), kp,
-                                    images_train[result[3]], flags=cv.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS))
+        plt.imshow(cv.drawKeypoints(images_train[result[3]], k_points[result[3]], images_train[result[3]],
+                                    flags=cv.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS))
         plt.title('Key points')
         plt.axis("off")
 
         fig.add_subplot(3, 1, 3)
         plt.imshow(out)
-        plt.title('Matching')
+        plt.title('Matching ({} corresponding)'.format(len(result[2])))
         plt.axis("off")
 
         plt.savefig('result.png')

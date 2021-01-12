@@ -48,9 +48,9 @@ def matching(vectors_ent, vectors_test, threshold):
                 # If the ration is below the threshold
                 # So there is correspondence on both sides
                 ratio_2 = distance_ecl_2[0] / distance_ecl_2[1]
-                if ratio_2 < threshold:
+                if ratio_2 < threshold and index_2[0] == k:
                     result[k] = vectors_ent[ind[0]]
-                    key_ent_to_test.append(cv.DMatch(ind[0], index_2[0], distance_ecl_2[0]))
+                    key_ent_to_test.append(cv.DMatch(index_2[0], ind[0], distance_ecl_2[0]))
                     correspondence += 1
                 else:
                     result[k] = None
@@ -99,7 +99,7 @@ def get_k_max_index(tab, d_match, k, labels_train):
         index_s[i] = index
         tab[index] = -1
 
-    return np.array(list(zip(labels, scores, dm, index_s)))
+    return np.array(list(zip(labels, scores, dm, index_s)), dtype="object")
 
 
 # Prediction from the descriptors of an image
